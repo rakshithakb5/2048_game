@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>2048 Game</title>
+
+  <!-- Tailwind via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white min-h-screen p-4 flex items-center justify-center">
+  <main class="w-full max-w-3xl">
+    <!-- Header -->
+    <header class="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-4 mb-5">
+  <div class="flex items-center gap-3">
+    <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-teal-400 via-cyan-300 to-indigo-300 text-slate-900 font-black text-2xl flex items-center justify-center shadow-xl">2048</div>
+    <div>
+      <h1 class="text-2xl font-bold tracking-wide">2048 game</h1>
+      <p class="text-sm text-slate-400">
+        Use <kbd class="kbd">←</kbd><kbd class="kbd">→</kbd><kbd class="kbd">↑</kbd><kbd class="kbd">↓</kbd> or swipe. Press <strong>U</strong> / <strong>Ctrl+Z</strong> to Undo.
+      </p>
+    </div>
+  </div>
+
+  <div class="flex items-center gap-3 bg-slate-800/60 rounded-2xl px-4 py-3 shadow-xl border border-white/10">
+    <div class="text-center">
+      <span class="block text-xs text-slate-400">SCORE</span>
+      <span id="score" class="block text-2xl font-extrabold">0</span>
+    </div>
+    <div class="text-center">
+      <span class="block text-xs text-slate-400">BEST</span>
+      <span id="best" class="block text-2xl font-extrabold">0</span>
+    </div>
+
+    <!-- NEW: Undo button -->
+    <button id="undoBtn"
+      class="px-3 py-2 rounded-xl bg-gradient-to-br from-slate-700 to-slate-900 border border-slate-600 font-semibold hover:scale-105 active:scale-95 transition disabled:opacity-40 disabled:cursor-not-allowed"
+      disabled>Undo</button>
+
+    <button id="newGame"
+      class="ml-1 px-3 py-2 rounded-xl bg-gradient-to-br from-slate-700 to-slate-900 border border-slate-600 font-semibold hover:scale-105 active:scale-95 transition">
+      New Game
+    </button>
+  </div>
+</header>
+
+
+    <!-- Board -->
+    <section class="rounded-3xl bg-slate-800/60 border border-white/10 p-4 shadow-2xl relative">
+      <div id="board" class="board" aria-label="2048 board" role="application" tabindex="0"></div>
+      <p class="text-slate-400 text-sm mt-3">Tip: new tiles are usually <strong>2</strong>, sometimes <strong>4</strong>.</p>
+
+      <!-- Overlay (win / game over / high score) -->
+      <div id="overlay" class="overlay hidden">
+        <div class="bg-slate-900 rounded-2xl p-8 text-center shadow-2xl border border-white/10 w-full max-w-md">
+          <!-- Stars -->
+          <div id="stars" class="flex justify-center mb-3 text-yellow-400 text-2xl">
+            <span>★</span><span>★</span><span>★</span>
+          </div>
+          <!-- Achievement badge -->
+          <div id="badge" class="flex justify-center mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-16 h-16 text-cyan-400" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M12 2l2.09 6.26h6.58l-5.33 3.87 2.04 6.3L12 15.77l-5.38 3.66 2.04-6.3-5.33-3.87h6.58z"/>
+            </svg>
+          </div>
+
+          <h2 id="overlayTitle" class="text-3xl font-extrabold mb-1"></h2>
+          <p id="overlaySubtitle" class="text-slate-400 mb-5"></p>
+
+          <div class="flex gap-3 justify-center">
+            <button id="continueBtn" class="px-4 py-2 bg-teal-500 rounded-lg font-bold hover:scale-105 transition hidden">
+              Continue
+            </button>
+            <button id="restartBtn" class="px-4 py-2 bg-indigo-500 rounded-lg font-bold hover:scale-105 transition">
+              New Game
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Tile template -->
+  <template id="tileTemplate">
+    <div class="tile"><span></span></div>
+  </template>
+
+  <script src="script.js"></script>
+</body>
+</html>

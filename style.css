@@ -1,0 +1,77 @@
+:root{
+  --board: #0b1220;
+}
+
+/* Hint keys */
+.kbd{
+  display:inline-block;min-width:20px;padding:2px 8px;border-radius:8px;
+  background:#0b1220;border:1px solid rgba(255,255,255,.1);
+  text-align:center;font-weight:700;font-size:12px;color:#c7d2fe;margin-right:4px
+}
+
+/* Perfect 4×4 board */
+.board{
+  width:100%;
+  aspect-ratio:1/1;                 /* keeps the board square */
+  background:var(--board);
+  border-radius:18px;
+  padding:12px;
+  display:grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows:    repeat(4, 1fr);  /* ← force 4 equal rows */
+  gap:12px;
+  position:relative;
+  user-select:none;
+  touch-action:none;
+}
+.board::before{
+  content:"";position:absolute;inset:-1px;border-radius:18px;
+  border:1px solid rgba(255,255,255,.06);pointer-events:none
+}
+
+/* Background cells (fixed placeholders) */
+.cell{
+  width:100%;height:100%;
+  background:rgba(255,255,255,.04);
+  border:1px dashed rgba(255,255,255,.06);
+  border-radius:14px;
+}
+
+/* Floating tiles (overlayed on the grid) */
+.tile{
+  width:100%;height:100%;               /* fill each grid slot exactly */
+  display:flex;align-items:center;justify-content:center;
+  font-weight:900;font-size:30px;
+  border-radius:14px;
+  box-shadow:0 8px 20px rgba(0,0,0,.35);
+  transition:transform .14s ease, background-color .2s ease, color .2s ease;
+}
+.tile.new{animation:pop .18s ease}
+.tile.merge{animation:pulse .22s ease}
+@keyframes pop{from{transform:scale(.5);opacity:.2}to{transform:scale(1);opacity:1}}
+@keyframes pulse{50%{transform:scale(1.08)}}
+
+/* Tile palette (same number => same color) */
+.t2   { background:#1e293b; color:#e6f0ff }
+.t4   { background:#1b2f47; color:#e6f7ff }
+.t8   { background:#1b3a4f; color:#f1fbff }
+.t16  { background:#17465a; color:#ffffff }
+.t32  { background:#145466; color:#ffffff }
+.t64  { background:#0e6575; color:#ffffff }
+.t128 { background:#0f8b8d; color:#071013 }
+.t256 { background:#11a89f; color:#071013 }
+.t512 { background:#14b8a6; color:#071013 }
+.t1024{ background:#22c55e; color:#08120a }
+.t2048{ background:#eab308; color:#0b0a04 }
+.t4096{ background:#f97316; color:#0b0a04 }
+.t8192{ background:#ef4444; color:#0b0a04 }
+
+/* Overlay */
+.overlay{
+  position:absolute; inset:0;
+  display:flex; align-items:center; justify-content:center;
+  background:rgba(2,6,23,.88);
+  border-radius:18px;
+  z-index:10;
+  padding:24px;
+}
